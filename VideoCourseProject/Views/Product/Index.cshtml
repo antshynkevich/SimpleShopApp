@@ -1,0 +1,17 @@
+﻿@model Product
+<div class="row">
+    <div class="col-3"><img class="card-img-top" src="@Model.ImagePath" alt=""/>
+    </div>
+    <div class="col-6">
+        <div class="h1">@Model.Name</div>
+        <div>Catalog Number: @Model.Id</div>
+        <div>Description: @Model.Description</div>
+        <div>Cost: @Model.Cost USD</div>
+        <a class="btn btn-dark" role="button" asp-controller="Home" asp-action="Index">
+            Continue shopping
+        </a>
+        <a class="btn btn-dark" role="button" asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id">
+            Add to cart
+        </a>
+    </div>
+</div>

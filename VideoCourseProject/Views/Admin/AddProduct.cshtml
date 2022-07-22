@@ -1,0 +1,30 @@
+﻿@model Product
+
+<form method="post">
+    <h3>Create new product</h3>
+    <div class="text-danger fw-bold" asp-validation-summary="All"></div>
+    <div class="row">
+        <div class="col-6">
+            <label asp-for="Name"></label>
+            <input class="form-control" asp-for="Name"/>
+            <span asp-validation-for="Name"></span>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-6">
+            <label asp-for="Description"></label>
+            <input class="form-control" asp-for="Description"/>
+            <span asp-validation-for="Description"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <label asp-for="Cost"></label>
+            <input type="number" class="form-control" asp-for="Cost"/>
+            <span asp-validation-for="Cost"></span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success mt-2" asp-controller="Admin" asp-action="AddProduct">Create</button>
+</form>

@@ -1,0 +1,30 @@
+﻿@model UserDeliveryInfo
+
+<form method="post">
+    <h3>Please input your delivery info</h3>
+    <div class="form-control w-75">
+    <div class="text-danger fw-bold" asp-validation-summary="ModelOnly"></div>
+        <div class="row">
+            <div class="col-3 mb-2 mt-1">
+                <label asp-for="Name">Input your Name and Surname</label>
+                <input name="name"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 mb-2">
+                <label asp-for="Address">Input your address</label>
+                <input name="address"/>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 mb-3">
+                <label asp-for="Phone">Input your phone</label>
+                <input name="phone"/>
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success mt-2" asp-controller="Order" asp-action="Buy">Do order</button>
+</form>

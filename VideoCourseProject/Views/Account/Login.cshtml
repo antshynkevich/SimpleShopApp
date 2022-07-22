@@ -1,0 +1,32 @@
+﻿@model Login
+<form method="post">
+    <div class="mb-3">
+        <h3>Login</h3>
+    </div>
+    <div class="text-danger fw-bold" asp-validation-summary="ModelOnly"></div>
+    <div class="row">    
+        <div class="col-4">
+            <label asp-for="Username"></label>
+            <input class="form-control" asp-for="Username"/>
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <label asp-for="Password"></label>
+            <input class="form-control" asp-for="Password"/>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <label>Remember Me</label>
+            <input class="form-check" type="checkbox" name="rememberme"/>
+        </div>
+        <a class="" asp-controller="Account" asp-action="Register">Registration for new members</a>
+    </div>
+
+    <button class="btn btn-success" type="submit" asp-controller="Account" asp-action="Login">Log In</button>
+</form>

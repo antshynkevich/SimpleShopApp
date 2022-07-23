@@ -17,7 +17,7 @@ public class AdminController : Controller
     public IActionResult Orders()
     {
         var orders = _orderRepository.GetAll();
-        return View();
+        return View(orders);
     }
 
     public IActionResult Users()
@@ -74,5 +74,17 @@ public class AdminController : Controller
     public IActionResult DeleteProduct()
     {
         throw new NotImplementedException();
+    }
+
+    public IActionResult OrderDetails(Guid id)
+    {
+        var order = _orderRepository.TryGetById(id);
+        return View(order);
+    }
+
+    public IActionResult UpdateOrderStatus(Guid orderId, OrderStatus status)
+    {
+        _orderRepository.UpdateStatus(orderId, status);
+        return RedirectToAction("Orders");
     }
 }

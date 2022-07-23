@@ -1,0 +1,44 @@
+﻿@model Order
+
+<div class="row">
+    @await Html.PartialAsync("AdminMenu")
+    <div class="col-8">
+        <form method="post">
+            <div class="col-9">
+                <h3>Order List</h3>
+                <table class="table table-striped">
+                    <tr>
+                        <td>Date and time</td>
+                        <td>@Model?.CreateTime</td>
+                    </tr>
+                    <tr>
+                        <td>Delivery address</td>
+                        <td>@Model?.User.Address</td>
+                    </tr>
+                    <tr>
+                        <td>Customer's name</td>
+                        <td>@Model?.User.Name</td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td>@Model?.User.Phone</td>
+                    </tr>
+                    <tr>
+                        <td>Whole cost</td>
+                        <td>@Model?.Cost</td>
+                    </tr>
+                    <tr>
+                        <td>Order status</td>
+                        <td>
+                            <select asp-for="Status" asp-items="@Html.GetEnumSelectList<OrderStatus>()"
+                                    class="form-control">
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <button asp-controller="Admin" asp-action="UpdateOrderStatus" asp-route-orderId="@Model?.Id" type="submit" class="btn btn-success">Update</button>
+        </form>
+    </div>
+
+</div>

@@ -1,30 +1,36 @@
 ﻿@model UserDeliveryInfo
-
 <form method="post">
-    <h3>Please input your delivery info</h3>
-    <div class="form-control w-75">
+    <div>
+        <h3>Please input your delivery info</h3>
+    </div>
     <div class="text-danger fw-bold" asp-validation-summary="ModelOnly"></div>
+    <div class="container">
         <div class="row">
-            <div class="col-3 mb-2 mt-1">
-                <label asp-for="Name">Input your Name and Surname</label>
-                <input name="name"/>
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-3 mb-2">
-                <label asp-for="Address">Input your address</label>
-                <input name="address"/>
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-3 mb-3">
-                <label asp-for="Phone">Input your phone</label>
-                <input name="phone"/>
-                <span asp-validation-for="Phone" class="text-danger"></span>
+            <div class="col-4">
+                <div class="col">
+                    <label asp-for="Name">Please input your Name</label>
+                    <input class="form-control" asp-for="Name"/>
+                    <span asp-validation-for="Name" class="text-danger fw-bold"></span>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="Address">Your Address</label>
+                        <input type="text" class="form-control" asp-for="Address"/>
+                        <span asp-validation-for="Address" class="text-danger fw-bold"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="Phone">Your Number</label>
+                        <input type="tel" class="form-control" asp-for="Phone"/>
+                        <span asp-validation-for="Phone" class="text-danger fw-bold"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-success mt-2" asp-controller="Order" asp-action="Buy">Do order</button>
+
+    <div>
+        <button asp-controller="Order" asp-action="Buy" class="btn btn-success mt-3" type="submit" >Do order</button>
+    </div>
 </form>

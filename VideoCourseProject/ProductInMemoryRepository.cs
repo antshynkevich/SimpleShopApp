@@ -41,4 +41,9 @@ public class ProductInMemoryRepository : IProductRepository
         existingProduct.Cost = product.Cost;
         // existingProduct.ImagePath = product.ImagePath;
     }
+
+    public void Remove(int id)
+    {
+        _products.RemoveAll(x => x.Id == id);
+    }
 }

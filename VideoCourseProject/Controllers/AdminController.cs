@@ -74,9 +74,10 @@ public class AdminController : Controller
         return RedirectToAction("Products");
     }
 
-    public IActionResult DeleteProduct()
+    public IActionResult DeleteProduct(int id)
     {
-        throw new NotImplementedException();
+        _productRepository.Remove(id);
+        return RedirectToAction("Products");
     }
 
     public IActionResult OrderDetails(Guid id)

@@ -7,11 +7,13 @@ public class AdminController : Controller
 {
     private readonly IProductRepository _productRepository;
     private readonly IOrderRepository _orderRepository;
+    private readonly IRolesRepository _rolesRepository;
 
-    public AdminController(IProductRepository productRepository, IOrderRepository orderRepository)
+    public AdminController(IProductRepository productRepository, IOrderRepository orderRepository, IRolesRepository rolesRepository)
     {
         _productRepository = productRepository;
         _orderRepository = orderRepository;
+        _rolesRepository = rolesRepository;
     }
 
     public IActionResult Orders()
@@ -27,7 +29,8 @@ public class AdminController : Controller
 
     public IActionResult Roles()
     {
-        return View();
+        var roles = _rolesRepository.GetAll();
+        return View(roles);
     }
 
     public IActionResult Products()
@@ -86,5 +89,33 @@ public class AdminController : Controller
     {
         _orderRepository.UpdateStatus(orderId, status);
         return RedirectToAction("Orders");
+    }
+
+    public IActionResult RemoveRole(string roleName)
+    {
+        _rolesRepository.Remove(roleName);
+        return RedirectToAction("Roles");
+    }
+
+    public IActionResult AddRole()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult AddRole(Role role)
+    {
+        if (_rolesRepository?.TryGetByName(role.Name) != null)
+        {
+            ModelState.AddModelError("","This role exists");
+        }
+
+        if (ModelState.IsValid)
+        {
+            _rolesRepository?.Add(role);
+            return RedirectToAction("Roles");
+        }
+
+        return View(role);
     }
 }

@@ -1,0 +1,14 @@
+﻿@model Role
+
+<form method="post">
+    <h3>Create new admin role</h3>
+    <div class="text-danger fw-bold" asp-validation-summary="ModelOnly"></div>
+    <div class="row">
+        <div class="col-6">
+            <label asp-for="Name"></label>
+            <input class="form-control" asp-for="Name"/>
+            <span asp-validation-for="Name"></span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success mt-2" asp-controller="Admin" asp-action="AddRole">Create role</button>
+</form>

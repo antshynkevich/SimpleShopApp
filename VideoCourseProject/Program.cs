@@ -1,3 +1,6 @@
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 using VideoCourseProject;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +9,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IProductRepository, ProductInMemoryRepository>();
 builder.Services.AddSingleton<ICartRepository, CartsRepository>();
 builder.Services.AddSingleton<IOrderRepository, OrdersInMemoryRepository>();
+builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+        new CultureInfo("en-US")
+    };
+
+    options.DefaultRequestCulture = new RequestCulture("en-US");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
 
 var app = builder.Build();
 
@@ -24,6 +40,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>()?.Value;
+if (localizationOptions != null) app.UseRequestLocalization(localizationOptions);
 
 app.MapControllerRoute(
     name: "default",

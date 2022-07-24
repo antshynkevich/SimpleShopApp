@@ -1,4 +1,4 @@
-﻿namespace VideoCourseProject.Models;
+﻿namespace VideoCourseProject.Areas.Admin.Models;
 
 public enum OrderStatus
 {

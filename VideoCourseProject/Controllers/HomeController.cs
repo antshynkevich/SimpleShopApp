@@ -7,13 +7,11 @@ namespace VideoCourseProject.Controllers;
 public class HomeController : Controller
 {
     private readonly IProductRepository _productRepository;
-    private readonly ICartRepository _cartRepository;
 
-    public HomeController(ILogger<HomeController> logger, IProductRepository productRepository, ICartRepository cartRepository)
+    public HomeController(ILogger<HomeController> logger, IProductRepository productRepository)
     {
         _logger = logger;
         _productRepository = productRepository;
-        _cartRepository = cartRepository;
     }
 
     private readonly ILogger<HomeController> _logger;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VideoCourseProject.Models;
+namespace VideoCourseProject.Areas.Admin.Models;
 
 public class Role
 {

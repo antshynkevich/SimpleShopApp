@@ -1,0 +1,33 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using VideoCourseProject.Areas.Admin.Models;
+
+namespace VideoCourseProject.Areas.Admin.Controllers;
+
+[Area("Admin")]
+public class OrderController : Controller
+{
+    private readonly IOrderRepository _orderRepository;
+
+    public OrderController(IOrderRepository orderRepository)
+    {
+        _orderRepository = orderRepository;
+    }
+
+    public IActionResult Index()
+    {
+        var orders = _orderRepository.GetAll();
+        return View(nameof(Index), orders);
+    }
+
+    public IActionResult Detail(Guid id)
+    {
+        var order = _orderRepository.TryGetById(id);
+        return View(order);
+    }
+
+    public IActionResult UpdateOrderStatus(Guid orderId, OrderStatus status)
+    {
+        _orderRepository.UpdateStatus(orderId, status);
+        return RedirectToAction(nameof(Index));
+    }
+}

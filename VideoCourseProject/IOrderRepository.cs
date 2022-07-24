@@ -1,4 +1,5 @@
-﻿using VideoCourseProject.Models;
+﻿using VideoCourseProject.Areas.Admin.Models;
+using VideoCourseProject.Models;
 
 namespace VideoCourseProject
 {

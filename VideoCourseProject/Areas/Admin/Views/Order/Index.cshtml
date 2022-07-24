@@ -1,4 +1,5 @@
 ﻿@model List<Order>
+
 <div class="row">
     @await Html.PartialAsync("AdminMenu")
 
@@ -24,7 +25,7 @@
                     <td>@Model[i].Status</td>
                     <td>@Model[i].CreateTime.ToString("d")</td>
                     <td>@Model[i].CreateTime.ToString("t")</td>
-                    <td><a asp-controller="Admin" asp-action="OrderDetails" 
+                    <td><a asp-area="Admin" asp-controller="Order" asp-action="Detail" 
                            asp-route-id="@Model[i].Id" class="btn btn-secondary">Details</a></td>
                 </tr>
             }

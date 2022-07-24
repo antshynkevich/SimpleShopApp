@@ -1,4 +1,4 @@
-﻿@model Role
+﻿@model VideoCourseProject.Areas.Admin.Models.Role
 
 <form method="post">
     <h3>Create new admin role</h3>
@@ -10,5 +10,5 @@
             <span asp-validation-for="Name"></span>
         </div>
     </div>
-    <button type="submit" class="btn btn-success mt-2" asp-controller="Admin" asp-action="AddRole">Create role</button>
+    <button asp-area="Admin" asp-controller="Role" asp-action="Add" type="submit" class="btn btn-success mt-2">`</button>
 </form>

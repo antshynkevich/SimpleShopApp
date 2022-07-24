@@ -1,10 +1,11 @@
 ﻿@model List<Product>
+
 <div class="row">
     @await Html.PartialAsync("AdminMenu")
 
     <div class="col-9">
         <h3>All Products</h3>
-        <a class="btn btn-info mb-3" asp-controller="Admin" asp-action="addProduct">Add new Product</a>
+        <a class="btn btn-info mb-3" asp-area="Admin" asp-controller="Product" asp-action="Add">Add new Product</a>
         <table class="table table-striped">    
             <thread>
                 <tr>
@@ -22,9 +23,9 @@
                     <td>@(i + 1)</td>
                     <td>@Model[i].Name</td>
                     <td>@Model[i].Cost</td>
-                    <td><a asp-controller="Admin" asp-action="EditProduct" 
+                    <td><a asp-area="Admin" asp-controller="Product" asp-action="Edit" 
                            asp-route-id="@Model[i].Id" class="btn btn-secondary">Edit</a></td>
-                    <td><a asp-controller="Admin" asp-action="DeleteProduct" 
+                    <td><a asp-area="Admin" asp-controller="Product" asp-action="DeleteProduct" 
                            asp-route-id="@Model[i].Id" class="btn btn-danger">Delete</a></td>
                 </tr>
             }

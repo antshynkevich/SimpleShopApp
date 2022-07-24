@@ -1,4 +1,6 @@
-﻿namespace VideoCourseProject.Models;
+﻿using VideoCourseProject.Areas.Admin.Models;
+
+namespace VideoCourseProject.Models;
 
 public class Order
 {

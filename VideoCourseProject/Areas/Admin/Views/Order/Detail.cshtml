@@ -1,4 +1,5 @@
-﻿@model Order
+﻿@using VideoCourseProject.Areas.Admin.Models
+@model Order
 
 <div class="row">
     @await Html.PartialAsync("AdminMenu")
@@ -37,7 +38,7 @@
                     </tr>
                 </table>
             </div>
-            <button asp-controller="Admin" asp-action="UpdateOrderStatus" asp-route-orderId="@Model?.Id" type="submit" class="btn btn-success">Update</button>
+            <button asp-area="Admin" asp-controller="Order" asp-action="UpdateOrderStatus" asp-route-orderId="@Model?.Id" type="submit" class="btn btn-success">Update</button>
         </form>
     </div>
 

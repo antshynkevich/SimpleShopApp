@@ -15,10 +15,10 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index), "Home");
         }
 
-        return RedirectToAction("Login");
+        return RedirectToAction(nameof(Login));
     }
 
     public IActionResult Register()
@@ -31,9 +31,9 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index), "Home");
         }
 
-        return RedirectToAction("Register");
+        return RedirectToAction(nameof(Register));
     }
 }

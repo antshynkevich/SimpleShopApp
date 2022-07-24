@@ -23,24 +23,24 @@ public class CartController : Controller
     {
         var product = _productRepository.TryGetById(id);
         _cartRepository.Add(product, Constans.UserId);
-        return RedirectToAction("Index");
+        return RedirectToAction(nameof(Index));
     }
 
     public IActionResult DecreaseAmount(Guid itemId)
     {
         _cartRepository.DecreaseAmount(itemId, Constans.UserId);
-        return RedirectToAction("Index");
+        return RedirectToAction(nameof(Index));
     }
 
     public IActionResult IncreaseAmount(Guid itemId)
     {
         _cartRepository.IncreaseAmount(itemId, Constans.UserId);
-        return RedirectToAction("Index");
+        return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Clear()
     {
         _cartRepository.Clear(Constans.UserId);
-        return RedirectToAction("Index");
+        return RedirectToAction(nameof(Index));
     }
 }

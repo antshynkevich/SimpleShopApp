@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VideoCourseProject.Areas.Admin.Models;
+using VideoCourseProject.Interfaces;
 
 namespace VideoCourseProject.Areas.Admin.Controllers;
 

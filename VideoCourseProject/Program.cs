@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 using VideoCourseProject;
 using Serilog;
+using VideoCourseProject.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,7 @@ builder.Services.AddSingleton<IProductRepository, ProductInMemoryRepository>();
 builder.Services.AddSingleton<ICartRepository, CartsRepository>();
 builder.Services.AddSingleton<IOrderRepository, OrdersInMemoryRepository>();
 builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
+builder.Services.AddSingleton<IUsersManager, UsersManager>();
 builder.Services.AddControllersWithViews();
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>

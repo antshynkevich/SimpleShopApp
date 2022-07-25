@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VideoCourseProject.Areas.Admin.Models;
+using VideoCourseProject.Interfaces;
 using VideoCourseProject.Models;
 
 namespace VideoCourseProject.Controllers;
@@ -25,7 +26,7 @@ public class OrderController : Controller
     {
         if (!ModelState.IsValid)
         {
-            return View("Index", user);
+            return View(nameof(Index), user);
         }
 
         var cart = _cartRepository.TryGetByUserId(Constans.UserId);

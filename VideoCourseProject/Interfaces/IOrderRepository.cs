@@ -1,7 +1,7 @@
 ﻿using VideoCourseProject.Areas.Admin.Models;
 using VideoCourseProject.Models;
 
-namespace VideoCourseProject
+namespace VideoCourseProject.Interfaces
 {
     public interface IOrderRepository
     {

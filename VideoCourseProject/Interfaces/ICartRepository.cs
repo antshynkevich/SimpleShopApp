@@ -1,6 +1,6 @@
 ﻿using VideoCourseProject.Models;
 
-namespace VideoCourseProject;
+namespace VideoCourseProject.Interfaces;
 
 public interface ICartRepository
 {

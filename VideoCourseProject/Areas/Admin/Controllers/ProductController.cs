@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VideoCourseProject.Interfaces;
+using VideoCourseProject.db.Interfaces;
+using VideoCourseProject.db.Models;
 using VideoCourseProject.Models;
 
 namespace VideoCourseProject.Areas.Admin.Controllers;
@@ -17,7 +18,22 @@ public class ProductController : Controller
     public IActionResult Index()
     {
         var products = _productRepository.GetAll();
-        return View(nameof(Index), products);
+        var productVM = new List<ProductViewModel>();
+        foreach (var product in products)
+        {
+            var productViewModel = new ProductViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Cost = product.Cost,
+                Description = product.Description,
+                ImagePath = product.ImagePath
+            };
+
+            productVM.Add(productViewModel);
+        }
+
+        return View(nameof(Index), productVM);
     }
 
     public IActionResult Add()
@@ -26,36 +42,59 @@ public class ProductController : Controller
     }
 
     [HttpPost]
-    public IActionResult Add(Product product)
+    public IActionResult Add(ProductViewModel productViewModel)
     {
         if (!ModelState.IsValid)
         {
-            return View(product);
+            return View(productViewModel);
         }
+
+        var product = new Product()
+        {
+            Id = productViewModel.Id,
+            Name = productViewModel.Name,
+            Description = productViewModel.Description,
+            Cost = productViewModel.Cost
+        };
 
         _productRepository.Add(product);
         return RedirectToAction(nameof(Index));
     }
 
-    public IActionResult Edit(int id)
+    public IActionResult Edit(Guid id)
     {
         var product = _productRepository.TryGetById(id);
-        return View(product);
+        var productForView = new ProductViewModel()
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            Cost = product.Cost
+        };
+
+        return View(productForView);
     }
 
     [HttpPost]
-    public IActionResult Edit(Product product)
+    public IActionResult Edit(ProductViewModel productViewModel)
     {
         if (!ModelState.IsValid)
         {
-            return View(product);
+            return View(productViewModel);
         }
+
+        var product = new Product()
+        {
+            Name = productViewModel.Name,
+            Description = productViewModel.Description,
+            Cost = productViewModel.Cost
+        };
 
         _productRepository.Update(product);
         return RedirectToAction(nameof(Index));
     }
 
-    public IActionResult DeleteProduct(int id)
+    public IActionResult DeleteProduct(Guid id)
     {
         _productRepository.Remove(id);
         return RedirectToAction(nameof(Index));

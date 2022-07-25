@@ -1,9 +1,13 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using VideoCourseProject;
 using Serilog;
 using VideoCourseProject.Interfaces;
+using VideoCourseProject.db;
+using VideoCourseProject.db.Interfaces;
+using VideoCourseProject.db.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +19,11 @@ var logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configurat
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
-builder.Services.AddSingleton<IProductRepository, ProductInMemoryRepository>();
+// Database context connect
+var connection = builder.Configuration.GetConnectionString("online_shop");
+builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
+
+builder.Services.AddTransient<IProductRepository, ProductsDbRepository>();
 builder.Services.AddSingleton<ICartRepository, CartsRepository>();
 builder.Services.AddSingleton<IOrderRepository, OrdersInMemoryRepository>();
 builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();

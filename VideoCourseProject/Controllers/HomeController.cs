@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using VideoCourseProject.Interfaces;
+using VideoCourseProject.db.Interfaces;
 using VideoCourseProject.Models;
 
 namespace VideoCourseProject.Controllers;
@@ -21,7 +21,21 @@ public class HomeController : Controller
     public ViewResult Index()
     {
         var products = _productRepository.GetAll();
-        return View(products);
+        var productVM = new List<ProductViewModel>();
+        foreach (var product in products)
+        {
+            var productViewModel = new ProductViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Cost = product.Cost,
+                Description = product.Description,
+                ImagePath = product.ImagePath
+            };
+            
+            productVM.Add(productViewModel);
+        }
+        return View(productVM);
     }
 
     public IActionResult Privacy()

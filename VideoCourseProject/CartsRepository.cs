@@ -12,7 +12,7 @@ public class CartsRepository : ICartRepository
         return _carts.FirstOrDefault(x => x.UserId == userId);
     }
 
-    public void Add(Product product, string userId)
+    public void Add(ProductViewModel productViewModel, string userId)
     {
         var cart = TryGetByUserId(userId);
         if (cart == null)
@@ -27,7 +27,7 @@ public class CartsRepository : ICartRepository
                     {
                         Id = Guid.NewGuid(),
                         Amount = 1,
-                        Product = product
+                        ProductViewModel = productViewModel
                     }
                 }
             };
@@ -36,7 +36,7 @@ public class CartsRepository : ICartRepository
         }
         else
         {
-            var existingCartItem = cart.Items.FirstOrDefault(x => x.Product.Id == product.Id);
+            var existingCartItem = cart.Items.FirstOrDefault(x => x.ProductViewModel.Id == productViewModel.Id);
             if (existingCartItem != null)
             {
                 existingCartItem.Amount++;
@@ -47,7 +47,7 @@ public class CartsRepository : ICartRepository
                 {
                     Id = Guid.NewGuid(),
                     Amount = 1,
-                    Product = product
+                    ProductViewModel = productViewModel
                 });
             }
         }

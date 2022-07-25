@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VideoCourseProject.Interfaces;
+using VideoCourseProject.db.Interfaces;
+using VideoCourseProject.Models;
 
 namespace VideoCourseProject.Controllers;
 
@@ -11,9 +12,18 @@ public class ProductController : Controller
         _productRepository = localProductRepository;
     }
 
-    public ViewResult Index(int id)
+    public ViewResult Index(Guid id)
     {
         var product = _productRepository.TryGetById(id);
-        return View(product);
+        var productForView = new ProductViewModel()
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            Cost = product.Cost,
+            ImagePath = product.ImagePath
+        };
+
+        return View(productForView);
     }
 }

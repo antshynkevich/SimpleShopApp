@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoCourseProject", "VideoCourseProject\VideoCourseProject.csproj", "{66E5678A-009B-4D9C-9F5D-958A8DADF0F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoCourseProject.db", "VideoCourseProject.db\VideoCourseProject.db.csproj", "{4DCAF7A5-1199-4C4D-BDB6-C708F8EE8155}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{66E5678A-009B-4D9C-9F5D-958A8DADF0F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66E5678A-009B-4D9C-9F5D-958A8DADF0F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66E5678A-009B-4D9C-9F5D-958A8DADF0F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DCAF7A5-1199-4C4D-BDB6-C708F8EE8155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DCAF7A5-1199-4C4D-BDB6-C708F8EE8155}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DCAF7A5-1199-4C4D-BDB6-C708F8EE8155}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DCAF7A5-1199-4C4D-BDB6-C708F8EE8155}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

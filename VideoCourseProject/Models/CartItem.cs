@@ -3,8 +3,8 @@
 public class CartItem
 {
     public Guid Id { get; set; }
-    public Product Product { get; set; }
+    public ProductViewModel ProductViewModel { get; set; }
     public int Amount { get; set; }
 
-    public decimal Cost => Product.Cost * Amount;
+    public decimal Cost => ProductViewModel.Cost * Amount;
 }

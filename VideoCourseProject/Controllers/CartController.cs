@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VideoCourseProject.db.Interfaces;
 using VideoCourseProject.Interfaces;
+using VideoCourseProject.Models;
 
 namespace VideoCourseProject.Controllers;
 
@@ -20,10 +22,18 @@ public class CartController : Controller
         return View(cart);
     }
 
-    public IActionResult Add(int id)
+    public IActionResult Add(Guid id)
     {
         var product = _productRepository.TryGetById(id);
-        _cartRepository.Add(product, Constans.UserId);
+        var productForView = new ProductViewModel()
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            Cost = product.Cost
+        };
+
+        _cartRepository.Add(productForView, Constans.UserId);
         return RedirectToAction(nameof(Index));
     }
 

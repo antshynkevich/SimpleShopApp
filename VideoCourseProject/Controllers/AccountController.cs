@@ -51,7 +51,8 @@ public class AccountController : Controller
             _usersManager.Add(new UserAccount
             {
                 Name = register.Username,
-                Password = register.Password
+                Password = register.Password,
+                Phone = register.Phone
             });
 
             return RedirectToAction(nameof(Index), nameof(HomeController).RemoveController());

@@ -1,0 +1,32 @@
+﻿@model UserAccount
+
+<div class="row">
+    @await Html.PartialAsync("AdminMenu")
+    <div class="col-8">
+        <div class="col-9">
+            <h3>User List</h3>
+            <table class="table table-striped">
+                <tr>
+                    <td>Login</td>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <td>User's phone</td>
+                    <td>@Model.Phone</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="dropdown">
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Edit actions
+        </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-name="@Model.Name" class="dropdown-item">Change password</a>
+                <a asp-area="Admin" asp-controller="User" asp-action="EditUser" asp-route-name="@Model.Name" class="dropdown-item">Edit user</a>
+                <a asp-area="Admin" asp-controller="User" asp-action="EditUserRights" asp-route-name="@Model.Name" class="dropdown-item">Edit user rights</a>
+                <a asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-name="@Model.Name" class="dropdown-item">Delete user</a>
+            </div>
+        </div>
+    </div>
+</div>

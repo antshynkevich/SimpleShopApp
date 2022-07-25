@@ -14,6 +14,13 @@
                 </div>
                 <div class="row">
                     <div class="col">
+                        <label asp-for="Phone">Input your phone</label>
+                        <input type="tel" class="form-control" asp-for="Phone"/>
+                        <span asp-validation-for="Phone" class="text-danger fw-bold"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
                         <label asp-for="Password">Input your password</label>
                         <input type="password" class="form-control" asp-for="Password"/>
                         <span asp-validation-for="Password" class="text-danger fw-bold"></span>

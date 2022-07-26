@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using VideoCourseProject.db.Interfaces;
 using VideoCourseProject.Models;
 
@@ -7,23 +8,18 @@ namespace VideoCourseProject.Controllers;
 public class ProductController : Controller
 {
     private readonly IProductRepository _productRepository;
-    public ProductController(IProductRepository localProductRepository)
+    private readonly IMapper _mapper;
+
+    public ProductController(IProductRepository localProductRepository, IMapper mapper)
     {
         _productRepository = localProductRepository;
+        _mapper = mapper;
     }
 
-    public ViewResult Index(Guid id)
+    public ViewResult Index(Guid productId)
     {
-        var product = _productRepository.TryGetById(id);
-        var productForView = new ProductViewModel()
-        {
-            Id = product.Id,
-            Name = product.Name,
-            Description = product.Description,
-            Cost = product.Cost,
-            ImagePath = product.ImagePath
-        };
-
+        var product = _productRepository.TryGetById(productId);
+        var productForView = _mapper.Map<ProductViewModel>(product);
         return View(productForView);
     }
 }

@@ -8,6 +8,7 @@ using VideoCourseProject.Interfaces;
 using VideoCourseProject.db;
 using VideoCourseProject.db.Interfaces;
 using VideoCourseProject.db.Repositories;
+using VideoCourseProject.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,10 +25,11 @@ var connection = builder.Configuration.GetConnectionString("online_shop");
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
 
 builder.Services.AddTransient<IProductRepository, ProductsDbRepository>();
-builder.Services.AddSingleton<ICartRepository, CartsRepository>();
+builder.Services.AddTransient<ICartRepository, CartsDbRepository>();
 builder.Services.AddSingleton<IOrderRepository, OrdersInMemoryRepository>();
 builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
 builder.Services.AddSingleton<IUsersManager, UsersManager>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddControllersWithViews();
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
@@ -63,10 +65,10 @@ if (localizationOptions != null) app.UseRequestLocalization(localizationOptions)
 
 app.MapControllerRoute(
     name: "MyArea",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{productId?}");
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{productId?}");
 
 app.Run();

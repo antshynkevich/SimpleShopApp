@@ -1,4 +1,4 @@
-﻿@model Cart
+﻿@model CartViewModel
 
 @{
     if (Model == null || Model.Items.Count == 0)
@@ -25,9 +25,9 @@
                     @foreach (var item in Model.Items)
                     {
                         <tr>
-                            <td class="text-center"><img class="w-50" src="@item.ProductViewModel.ImagePath" alt="sus"/></td>
-                            <td>@item.ProductViewModel.Name</td>
-                            <td>@item.ProductViewModel.Cost</td>
+                            <td class="text-center"><img class="w-50" src="@item.Product.ImagePath" alt="sus"/></td>
+                            <td>@item.Product.Name</td>
+                            <td>@item.Product.Cost</td>
                             <td>@item.Amount</td>
                             <td>
                                 <a class="btn btn-dark" asp-controller="Cart" asp-action="IncreaseAmount"

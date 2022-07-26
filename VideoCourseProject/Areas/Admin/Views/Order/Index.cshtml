@@ -26,7 +26,7 @@
                     <td>@Model[i].CreateTime.ToString("d")</td>
                     <td>@Model[i].CreateTime.ToString("t")</td>
                     <td><a asp-area="Admin" asp-controller="Order" asp-action="Detail" 
-                           asp-route-id="@Model[i].Id" class="btn btn-secondary">Details</a></td>
+                           asp-route-productId="@Model[i].Id" class="btn btn-secondary">Details</a></td>
                 </tr>
             }
             </tbody>

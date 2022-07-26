@@ -12,5 +12,5 @@ public class ProductViewModel
     public decimal Cost { get; set; }
     [Required]
     public string Description { get; set; }
-    public string? ImagePath { get; set; }
+    public string ImagePath { get; set; }
 }

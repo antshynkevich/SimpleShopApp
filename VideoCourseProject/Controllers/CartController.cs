@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using VideoCourseProject.db.Interfaces;
-using VideoCourseProject.Interfaces;
 using VideoCourseProject.Models;
 
 namespace VideoCourseProject.Controllers;
@@ -9,31 +9,26 @@ public class CartController : Controller
 {
     private readonly IProductRepository _productRepository;
     private readonly ICartRepository _cartRepository;
+    private readonly IMapper _mapper;
 
-    public CartController(ICartRepository localCartRepository, IProductRepository localProductRepository)
+    public CartController(ICartRepository localCartRepository, IProductRepository localProductRepository, IMapper mapper)
     {
         _cartRepository = localCartRepository;
         _productRepository = localProductRepository;
+        _mapper = mapper;
     }
 
     public IActionResult Index()
     {
         var cart = _cartRepository.TryGetByUserId(Constans.UserId);
-        return View(cart);
+        var cartForView = _mapper.Map<CartViewModel>(cart);
+        return View(cartForView);
     }
 
-    public IActionResult Add(Guid id)
+    public IActionResult Add(Guid productId)
     {
-        var product = _productRepository.TryGetById(id);
-        var productForView = new ProductViewModel()
-        {
-            Id = product.Id,
-            Name = product.Name,
-            Description = product.Description,
-            Cost = product.Cost
-        };
-
-        _cartRepository.Add(productForView, Constans.UserId);
+        var product = _productRepository.TryGetById(productId);
+        _cartRepository.Add(product, Constans.UserId);
         return RedirectToAction(nameof(Index));
     }
 

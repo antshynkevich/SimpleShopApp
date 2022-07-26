@@ -7,14 +7,6 @@ public class ProductsDbRepository : IProductRepository
 {
     private readonly DatabaseContext _databaseContext;
 
-    //private List<Product> _products = new()
-    //{
-    //    new ("Name1", 10, "Desc1", "/images/img.webp"),
-    //    new ("Name2", 20, "Desc2", "/images/img.webp"),
-    //    new ("Name3", 30, "Desc3","/images/img.webp"),
-    //    new ("Name4", 40, "Desc4", "/images/img.webp"),
-    //};
-
     public ProductsDbRepository(DatabaseContext databaseContext)
     {
         _databaseContext = databaseContext;

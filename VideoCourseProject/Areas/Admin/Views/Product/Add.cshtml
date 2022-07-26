@@ -2,12 +2,12 @@
 
 <form method="post">
     <h3>Create new product</h3>
-    <div class="text-danger fw-bold" asp-validation-summary="All"></div>
+    <div class="text-danger fw-bold" asp-validation-summary="ModelOnly"></div>
     <div class="row">
         <div class="col-6">
             <label asp-for="Name"></label>
             <input class="form-control" asp-for="Name"/>
-            <span asp-validation-for="Name"></span>
+            <span asp-validation-for="Name" class="text-danger fw-bold"></span>
         </div>
     </div>
     
@@ -15,7 +15,7 @@
         <div class="col-6">
             <label asp-for="Description"></label>
             <input class="form-control" asp-for="Description"/>
-            <span asp-validation-for="Description"></span>
+            <span asp-validation-for="Description" class="text-danger fw-bold"></span>
         </div>
     </div>
 
@@ -23,7 +23,15 @@
         <div class="col-6">
             <label asp-for="Cost"></label>
             <input type="number" class="form-control" asp-for="Cost"/>
-            <span asp-validation-for="Cost"></span>
+            <span asp-validation-for="Cost" class="text-danger fw-bold"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <label asp-for="ImagePath"></label>
+            <input type="text" class="form-control" asp-for="ImagePath"/>
+            <span asp-validation-for="ImagePath" class="text-danger fw-bold"></span>
         </div>
     </div>
     <button asp-area="Admin" asp-controller="Product" asp-action="Add" type="submit" class="btn btn-success mt-2" >Create</button>

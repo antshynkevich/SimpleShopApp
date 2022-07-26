@@ -24,9 +24,9 @@
                     <td>@Model[i].Name</td>
                     <td>@Model[i].Cost</td>
                     <td><a asp-area="Admin" asp-controller="Product" asp-action="Edit" 
-                           asp-route-id="@Model[i].Id" class="btn btn-secondary">Edit</a></td>
+                           asp-route-productId="@Model[i].Id" class="btn btn-secondary">Edit</a></td>
                     <td><a asp-area="Admin" asp-controller="Product" asp-action="DeleteProduct" 
-                           asp-route-id="@Model[i].Id" class="btn btn-danger">Delete</a></td>
+                           asp-route-productId="@Model[i].Id" class="btn btn-danger">Delete</a></td>
                 </tr>
             }
             </tbody>

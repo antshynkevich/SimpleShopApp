@@ -20,9 +20,9 @@ public class OrderController : Controller
         return View(nameof(Index), orders);
     }
 
-    public IActionResult Detail(Guid id)
+    public IActionResult Detail(Guid productId)
     {
-        var order = _orderRepository.TryGetById(id);
+        var order = _orderRepository.TryGetById(productId);
         return View(order);
     }
 

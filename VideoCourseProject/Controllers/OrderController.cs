@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using VideoCourseProject.Areas.Admin.Models;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using VideoCourseProject.db.Interfaces;
 using VideoCourseProject.Interfaces;
 using VideoCourseProject.Models;
 
@@ -9,11 +10,13 @@ public class OrderController : Controller
 {
     private readonly ICartRepository _cartRepository;
     private readonly IOrderRepository _orderRepository;
+    private readonly IMapper _mapper;
 
-    public OrderController(ICartRepository cartRepository, IOrderRepository orderRepository)
+    public OrderController(ICartRepository cartRepository, IOrderRepository orderRepository, IMapper mapper)
     {
         _cartRepository = cartRepository;
         _orderRepository = orderRepository;
+        _mapper = mapper;
     }
 
     public IActionResult Index()
@@ -30,10 +33,12 @@ public class OrderController : Controller
         }
 
         var cart = _cartRepository.TryGetByUserId(Constans.UserId);
+        // TODO : delete this mapping
+        var cartView = _mapper.Map<CartViewModel>(cart);
         var order = new Order
         {
             User = user,
-            Items = cart.Items
+            Items = cartView.Items
         };
         _orderRepository.Add(order);
         _cartRepository.Clear(Constans.UserId);

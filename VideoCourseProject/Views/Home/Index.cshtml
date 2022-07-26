@@ -10,11 +10,11 @@
             <img class="card-img-top" src="@product.ImagePath" alt=""/>
 
             <div class="card-body">
-                <a style="color: black" asp-controller="Product" asp-action="Index" asp-route-id="@product.Id">
+                <a style="color: black" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">
                     <h5>@product.Name</h5>
                 </a>
                 <h5>@product.Cost USD</h5>
-                <a class="btn btn-dark" asp-controller="Cart" asp-action="Add" asp-route-id="@product.Id" role="button">Add to cart</a>
+                <a class="btn btn-dark" asp-controller="Cart" asp-action="Add" asp-route-productId="@product.Id" role="button">Add to cart</a>
             </div>
         </div>
     }

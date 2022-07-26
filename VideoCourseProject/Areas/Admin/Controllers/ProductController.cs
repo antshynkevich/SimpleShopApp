@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using VideoCourseProject.db.Interfaces;
 using VideoCourseProject.db.Models;
 using VideoCourseProject.Models;
@@ -8,32 +9,19 @@ namespace VideoCourseProject.Areas.Admin.Controllers;
 [Area("Admin")]
 public class ProductController : Controller
 {
+    private readonly IMapper _mapper;
     private readonly IProductRepository _productRepository;
 
-    public ProductController(IProductRepository productRepository)
+    public ProductController(IProductRepository productRepository, IMapper mapper)
     {
         _productRepository = productRepository;
+        _mapper = mapper;
     }
 
     public IActionResult Index()
     {
-        var products = _productRepository.GetAll();
-        var productVM = new List<ProductViewModel>();
-        foreach (var product in products)
-        {
-            var productViewModel = new ProductViewModel
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Cost = product.Cost,
-                Description = product.Description,
-                ImagePath = product.ImagePath
-            };
-
-            productVM.Add(productViewModel);
-        }
-
-        return View(nameof(Index), productVM);
+        var products = _mapper.Map<List<ProductViewModel>>(_productRepository.GetAll());
+        return View(nameof(Index), products);
     }
 
     public IActionResult Add()
@@ -49,29 +37,15 @@ public class ProductController : Controller
             return View(productViewModel);
         }
 
-        var product = new Product()
-        {
-            Id = productViewModel.Id,
-            Name = productViewModel.Name,
-            Description = productViewModel.Description,
-            Cost = productViewModel.Cost
-        };
-
+        var product = _mapper.Map<Product>(productViewModel);
         _productRepository.Add(product);
         return RedirectToAction(nameof(Index));
     }
 
-    public IActionResult Edit(Guid id)
+    public IActionResult Edit(Guid productId)
     {
-        var product = _productRepository.TryGetById(id);
-        var productForView = new ProductViewModel()
-        {
-            Id = product.Id,
-            Name = product.Name,
-            Description = product.Description,
-            Cost = product.Cost
-        };
-
+        var product = _productRepository.TryGetById(productId);
+        var productForView = _mapper.Map<ProductViewModel>(product);
         return View(productForView);
     }
 
@@ -83,20 +57,14 @@ public class ProductController : Controller
             return View(productViewModel);
         }
 
-        var product = new Product()
-        {
-            Name = productViewModel.Name,
-            Description = productViewModel.Description,
-            Cost = productViewModel.Cost
-        };
-
+        var product = _mapper.Map<Product>(productViewModel);
         _productRepository.Update(product);
         return RedirectToAction(nameof(Index));
     }
 
-    public IActionResult DeleteProduct(Guid id)
+    public IActionResult DeleteProduct(Guid productId)
     {
-        _productRepository.Remove(id);
+        _productRepository.Remove(productId);
         return RedirectToAction(nameof(Index));
     }
 }

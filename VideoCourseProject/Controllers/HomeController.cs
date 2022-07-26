@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using AutoMapper;
 using VideoCourseProject.db.Interfaces;
 using VideoCourseProject.Models;
 
@@ -8,34 +9,19 @@ namespace VideoCourseProject.Controllers;
 public class HomeController : Controller
 {
     private readonly IProductRepository _productRepository;
+    private readonly IMapper _mapper;
 
-    public HomeController(ILogger<HomeController> logger, IProductRepository productRepository)
+    public HomeController(IProductRepository productRepository, IMapper mapper)
     {
-        _logger = logger;
         _productRepository = productRepository;
+        _mapper = mapper;
     }
 
-    private readonly ILogger<HomeController> _logger;
-
- 
     public ViewResult Index()
     {
         var products = _productRepository.GetAll();
-        var productVM = new List<ProductViewModel>();
-        foreach (var product in products)
-        {
-            var productViewModel = new ProductViewModel
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Cost = product.Cost,
-                Description = product.Description,
-                ImagePath = product.ImagePath
-            };
-            
-            productVM.Add(productViewModel);
-        }
-        return View(productVM);
+        var productsViewModel = _mapper.Map<List<ProductViewModel>>(products);
+        return View(productsViewModel);
     }
 
     public IActionResult Privacy()

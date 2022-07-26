@@ -27,5 +27,14 @@
             <span asp-validation-for="Cost" class="text-danger fw-bold"></span>
         </div>
     </div>
+    
+    <div class="row">
+        <div class="col-6">
+            <label asp-for="ImagePath">Path for Image</label>
+            <input type="text" class="form-control" asp-for="Cost" value="@Model?.ImagePath"/>
+            <span asp-validation-for="ImagePath" class="text-danger fw-bold"></span>
+        </div>
+    </div>
+
     <button asp-area="Admin" asp-controller="Product" asp-action="Edit" type="submit" class="btn btn-success mt-2">Save changes</button>
 </form>

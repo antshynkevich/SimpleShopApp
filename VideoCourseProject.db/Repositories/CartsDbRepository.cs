@@ -1,42 +1,51 @@
-﻿using VideoCourseProject.Interfaces;
-using VideoCourseProject.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using VideoCourseProject.db.Interfaces;
+using VideoCourseProject.db.Models;
 
-namespace VideoCourseProject;
+namespace VideoCourseProject.db.Repositories;
 
-public class CartsRepository : ICartRepository
+public class CartsDbRepository : ICartRepository
 {
-    private List<Cart> _carts = new();
+    private readonly DatabaseContext _databaseContext;
+
+    public CartsDbRepository(DatabaseContext databaseContext)
+    {
+        _databaseContext = databaseContext;
+    }
 
     public Cart? TryGetByUserId(string userId)
     {
-        return _carts.FirstOrDefault(x => x.UserId == userId);
+        return _databaseContext.Carts
+            .Include(x => x.Items)
+            .ThenInclude(x => x.Product)
+            .FirstOrDefault(x => x.UserId == userId);
     }
 
-    public void Add(ProductViewModel productViewModel, string userId)
+    public void Add(Product product, string userId)
     {
         var cart = TryGetByUserId(userId);
         if (cart == null)
         {
             var newCart = new Cart
             {
-                Id = Guid.NewGuid(),
-                UserId = userId,
-                Items = new List<CartItem>
-                {
-                    new CartItem()
-                    {
-                        Id = Guid.NewGuid(),
-                        Amount = 1,
-                        ProductViewModel = productViewModel
-                    }
-                }
+                UserId = userId
             };
 
-            _carts.Add(newCart);
+            newCart.Items = new List<CartItem>
+            {
+                new CartItem
+                {
+                    Amount = 1,
+                    Product = product,
+                    Cart = newCart
+                }
+            };
+            
+            _databaseContext.Carts.Add(newCart);
         }
         else
         {
-            var existingCartItem = cart.Items.FirstOrDefault(x => x.ProductViewModel.Id == productViewModel.Id);
+            var existingCartItem = cart.Items.FirstOrDefault(x => x.Product.Id == product.Id);
             if (existingCartItem != null)
             {
                 existingCartItem.Amount++;
@@ -45,12 +54,14 @@ public class CartsRepository : ICartRepository
             {
                 cart.Items.Add(new CartItem()
                 {
-                    Id = Guid.NewGuid(),
                     Amount = 1,
-                    ProductViewModel = productViewModel
+                    Product = product,
+                    Cart = cart
                 });
             }
         }
+
+        _databaseContext.SaveChanges();
     }
 
     public void DecreaseAmount(Guid itemId, string userId)
@@ -67,6 +78,8 @@ public class CartsRepository : ICartRepository
         {
             cart.Items.Remove(existingCartItem);
         }
+
+        _databaseContext.SaveChanges();
     }
 
     public void IncreaseAmount(Guid itemId, string userId)
@@ -84,11 +97,14 @@ public class CartsRepository : ICartRepository
         }
 
         existingCartItem.Amount++;
+
+        _databaseContext.SaveChanges();
     }
 
     public void Clear(string userId)
     {
         var cart = TryGetByUserId(userId);
-        _carts.Remove(cart);
+        _databaseContext.Carts.Remove(cart);
+        _databaseContext.SaveChanges();
     }
 }
